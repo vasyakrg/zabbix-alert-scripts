@@ -14,7 +14,7 @@ else
 	ICON=":point_up_2:"
 fi
 
-/usr/local/bin/curl -X POST --data-urlencode "payload={\"channel\": \"$TO\", \"username\": \"TradeNarK\", \"text\": \"$ICON $SUB\n$MESS\"}" $KEY
+curl -X POST --data-urlencode "payload={\"channel\": \"$TO\", \"username\": \"TradeNarK\", \"text\": \"$ICON $SUB\n$MESS\"}" $KEY
 
 
 # settings to zabbix-server
