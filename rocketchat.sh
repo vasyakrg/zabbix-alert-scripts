@@ -6,29 +6,28 @@ username='zabbix'
 icon_emoji=':grinning:'
 LOGFILE="zabbix-rocketchat.log"
 
+# View and set the values of this envs in Zabbix settings
+STATUS_OK=OK
+STATUS_UPDATE=UPDATE
+STATUS_PROBLE=PROBLEM
+
 ## Values received by this script:
 # To = $1 (RocketChat Channel Token )
 # Subject = $2 (usually either OK or PROBLEM)
 # Message = $3 (whatever message the Zabbix action sends, preferably something like "Zabbix server is unreachable for 5 minutes - Zabbix server (127.0.0.1)")
 
 # Get the Rocketchat zabbix subject ($2 - hopefully either PROBLEM or RECOVERY)
-subject="$2"
+subject="${2^^}"
 
-# Change color emoji depending on the subject - Green (RECOVERY), Red (PROBLEM), Yellow (UPDATE)
-if [[ "$subject" == *"OK"* ]]; then
+# Change color and emoji depending on the subject - Green (RECOVERY), Red (PROBLEM), Yellow (UPDATE)
+if [[ "$subject" == *"${STATUS_OK}"* ]]; then
         color="#00ff33"
-elif [[ "$subject" == *"UPDATE"* ]]; then
-        color="#ffcc00"
-elif [[ "$subject" == *"PROBLEM"* ]]; then
-        color="#ff2a00"
-fi
-
-
-if [[ "$subject" == *"OK"* ]]; then
         icon_emoji=':grinning:'
-elif  [[ "$subject" == *"UPDATE"* ]]; then
+elif [[ "$subject" == *"${STATUS_UPDATE}"* ]]; then
+        color="#ffcc00"
         icon_emoji=':warning:'
-elif  [[ "$subject" == *"PROBLEM"* ]]; then
+elif [[ "$subject" == *"${STATUS_PROBLE}"* ]]; then
+        color="#ff2a00"
         icon_emoji=':slight_frown:'
 fi
 
